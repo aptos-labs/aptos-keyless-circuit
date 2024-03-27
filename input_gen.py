@@ -62,13 +62,15 @@ def limbs_to_long(limbs):
 
     return val
 
-iat_value = "1700255944" # Friday, November 17, 2023
+#iat_value = "1700255944" # Friday, November 17, 2023
+iat_value = "1711552630"
 
 exp_date_num = 111_111_111_111
 exp_date = str(exp_date_num) # 12-21-5490
 exp_horizon_num = 999_999_999_999 # ~31,710 years
 exp_horizon = str(exp_horizon_num) 
-nonce_value = "2284473333442251804379681643965308154311773667525398119496797545594705356495"
+#nonce_value = "2284473333442251804379681643965308154311773667525398119496797545594705356495"
+nonce_value = "12772123150809496860193457976937182964297283633705872391534946866719681904311"
 public_inputs_hash_value = '"' +str(20184347722831264297183009689956363527052066666845340178129495539169215716642) + '"'
 
 nonce = int(nonce_value)
@@ -91,6 +93,23 @@ jwt_dict = {
     "family_name": "Straka",
     "locale": "en",
     "exp":2700259544
+}
+
+jwt_dict = {
+  "iss": "test.oidc.provider",
+  "azp": "511276456880-i7i4787c1863damto6899ts989j2e35r.apps.googleusercontent.com",
+  "aud": "511276456880-i7i4787c1863damto6899ts989j2e35r.apps.googleusercontent.com",
+  "sub": "102904630171592520592",
+  "email": "hero1200091@gmail.com",
+  "email_verified": True,
+  #"nonce": "12772123150809496860193457976937182964297283633705872391534946866719681904311",
+  "nbf": 1711552330,
+  "name": "コンドウハルキ",
+  "picture": "https://lh3.googleusercontent.com/a/ACg8ocIMZfIkNWGRBTD924xl_iefpMccLguwdMIinMPzaj5L4Q=s96-c",
+  "given_name": "ルキ",
+  "family_name": "コンドウ",
+  "iat": 1711552630,
+  "exp": 1711556230
 }
 
 jwt_dict['iat'] = int(iat_value) # WARNING: the code assumes this is NOT the last field
@@ -123,7 +142,8 @@ header_len_with_separator_value = '"' + str(len(jwt_header_string)) + '"'
 maxAudKVPairLen = 140
 maxAudNameLen = 40
 maxAudValueLen = 120
-aud_field_string = "\"aud\":\"407408718192.apps.googleusercontent.com\","
+#aud_field_string = "\"aud\":\"407408718192.apps.googleusercontent.com\","
+aud_field_string = "\"aud\":\"511276456880-i7i4787c1863damto6899ts989j2e35r.apps.googleusercontent.com\","
 aud_field_value = pad_string(aud_field_string, maxAudKVPairLen)
 aud_field_len_value = '"' + str(len(aud_field_string)) + '"'
 aud_index_value = '"' + str(jwt_payload.index("aud")-1) + '"' # First '"' character in aud field index in payload
@@ -131,7 +151,8 @@ aud_colon_index = aud_field_string.index(":")
 aud_colon_index_value = '"' + str(aud_colon_index) + '"'
 aud_value_index_value = '"' + str(aud_colon_index+2) + '"' # TODO: This doesn't work if there's whitespace
 aud_name = "aud"
-aud_value = "407408718192.apps.googleusercontent.com"
+#aud_value = "407408718192.apps.googleusercontent.com"
+aud_value = "511276456880-i7i4787c1863damto6899ts989j2e35r.apps.googleusercontent.com"
 aud_name_value = pad_string(aud_name, maxAudNameLen)
 aud_value_value = pad_string(aud_value, maxAudValueLen)
 aud_value_len_value = '"' + str(len(aud_value)) + '"'
@@ -167,7 +188,8 @@ exp_horizon_value = '"' + exp_horizon + '"'
 maxUidKVPairLen = 350
 maxUidNameLen = 30
 maxUidValueLen = 330
-uid_field_string = "\"sub\":\"113990307082899718775\","
+#uid_field_string = "\"sub\":\"113990307082899718775\","
+uid_field_string = "\"sub\":\"102904630171592520592\","
 uid_field_value = pad_string(uid_field_string, maxUidKVPairLen)
 uid_field_len_value = '"' + str(len(uid_field_string)) + '"'
 uid_index_value = '"' + str(jwt_payload.index("sub")-1) + '"' # This doesn't work for non-sub user id fields
@@ -177,7 +199,8 @@ uid_colon_index = uid_field_string.index(":")
 uid_colon_index_value = '"' + str(uid_colon_index) + '"'
 uid_value_index_value = '"' + str(uid_colon_index+2) + '"'
 uid_name = "sub";
-uid_value = "113990307082899718775";
+#uid_value = "113990307082899718775";
+uid_value = "102904630171592520592";
 uid_name_value = pad_string(uid_name, maxUidNameLen);
 uid_value_value = pad_string(uid_value, maxUidValueLen);
 uid_value_len_value = '"' + str(len(uid_value)) + '"'
@@ -186,7 +209,8 @@ uid_value_len_value = '"' + str(len(uid_value)) + '"'
 maxEFKVPairLen = 350
 maxEFNameLen = 30
 maxEFValueLen = 330
-extra_field_string = "\"family_name\":\"Straka\","
+#extra_field_string = "\"family_name\":\"Straka\","
+extra_field_string = "\"family_name\":\"コンドウ\","
 extra_field_value = pad_string(extra_field_string, maxEFKVPairLen)
 extra_field_len_value = '"' + str(len(extra_field_string)) + '"'
 extra_index_value = '"' + str(jwt_payload.index("family_name")-1) + '"'
@@ -196,11 +220,12 @@ extra_colon_index = extra_field_string.index(":")
 extra_colon_index_value = '"' + str(extra_colon_index) + '"'
 extra_value_index_value = '"' + str(extra_colon_index+2) + '"'
 extra_name = "family_name";
-extra_value = "Straka";
+#extra_value = "Straka";
+extra_value = "コンドウ"
 extra_name_value = pad_string(extra_name, maxEFNameLen);
 extra_value_value = pad_string(extra_value, maxEFValueLen);
 extra_value_len_value = '"' + str(len(extra_value)) + '"'
-use_extra_field_value = '"' + str(1) + '"'
+use_extra_field_value = '"' + str(0) + '"'
 
 maxEVKVPairLen = 30
 maxEVNameLen = 20
@@ -222,7 +247,8 @@ ev_value_len_value = '"' + str(len(ev_value)) + '"'
 maxIssKVPairLen = 140
 maxIssNameLen = 40 
 maxIssValueLen = 120
-iss_field_string = "\"iss\":\"https://accounts.google.com\","
+#iss_field_string = "\"iss\":\"https://accounts.google.com\","
+iss_field_string = "\"iss\":\"test.oidc.provider\","
 iss_field_value = pad_string(iss_field_string, maxIssKVPairLen)
 iss_field_len_value = '"' + str(len(iss_field_string)) + '"'
 iss_index_value = '"' + str(jwt_payload.index("iss")-1) + '"' 
@@ -231,7 +257,8 @@ iss_colon_index = iss_field_string.index(":")
 iss_colon_index_value = '"' + str(iss_colon_index) + '"'
 iss_value_index_value = '"' + str(iss_colon_index+2) + '"' # TODO: Doesn't work with whitespace
 iss_name = "iss"
-iss_value = "https://accounts.google.com"
+#iss_value = "https://accounts.google.com"
+iss_value = "test.oidc.provider"
 iss_name_value = pad_string(iss_name, maxIssNameLen)
 iss_value_value = pad_string(iss_value, maxIssValueLen)
 iss_value_len_value = '"' + str(len(iss_value)) + '"'
